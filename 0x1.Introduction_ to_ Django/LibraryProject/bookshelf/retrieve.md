@@ -1,1 +1,2 @@
-Commande ECHO activ‚e.
+books = Book.objects.all()
+"Book.objects.get", "1984"
