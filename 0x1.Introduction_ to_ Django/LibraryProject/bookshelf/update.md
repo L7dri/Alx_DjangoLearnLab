@@ -1,1 +1,2 @@
-Commande ECHO activ‚e.
+book = Book.objects.get(title="1984")
+book.title = "Nineteen Eighty-Four"
