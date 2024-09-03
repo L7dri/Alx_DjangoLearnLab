@@ -1,3 +1,4 @@
+<!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +14,5 @@
         <button type="submit">Login</button>
     </form>
     <a href="{% url 'register' %}">Register</a>
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
 </body>
 </html>
