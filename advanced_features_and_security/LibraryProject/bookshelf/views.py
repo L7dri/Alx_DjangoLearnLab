@@ -28,5 +28,6 @@ def delete_book(request, book_id):
 
 book_list
 
+from .forms import ExampleForm
 
 # Create your views here.
