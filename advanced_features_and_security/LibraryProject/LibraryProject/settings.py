@@ -157,3 +157,5 @@ DEBUG = False
 
 # Add your domain to ALLOWED_HOSTS for production use.
 ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
+
+SECURE_SSL_REDIRECT
