@@ -159,3 +159,4 @@ DEBUG = False
 ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
 
 SECURE_SSL_REDIRECT
+SECURE_HSTS_SECONDS 31536000
