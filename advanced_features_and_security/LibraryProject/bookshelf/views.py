@@ -26,5 +26,7 @@ def delete_book(request, book_id):
     # Implementation for deleting a book
     pass
 
+book_list
+
 
 # Create your views here.
