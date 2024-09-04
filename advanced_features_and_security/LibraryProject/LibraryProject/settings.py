@@ -123,3 +123,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 bookshelf.CustomUser
+
+# settings.py
+INSTALLED_APPS += ['csp']
+
+CSP_DEFAULT_SRC = ("'self'",)  # Only allow content from the same domain.
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'")  # Allow inline scripts, but prefer avoiding it.
+CSP_IMG_SRC = ("'self'", "data:")  # Allow images from the same domain and data URIs.
