@@ -134,3 +134,26 @@ CSP_IMG_SRC = ("'self'", "data:")  # Allow images from the same domain and data 
 # settings.py
 CSRF_COOKIE_SECURE = True  # Ensures CSRF cookies are sent over HTTPS.
 SESSION_COOKIE_SECURE = True  # Ensures session cookies are sent over HTTPS.
+
+# settings.py
+
+# Enable the browser's XSS protection and ensure it is used.
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent the site from being embedded in an iframe, which protects against clickjacking attacks.
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from trying to guess the content type, which helps avoid certain types of attacks.
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Ensure that CSRF cookies are only sent over HTTPS.
+CSRF_COOKIE_SECURE = True
+
+# Ensure that session cookies are only sent over HTTPS.
+SESSION_COOKIE_SECURE = True
+
+# Remember to set DEBUG to False in production.
+DEBUG = False
+
+# Add your domain to ALLOWED_HOSTS for production use.
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
