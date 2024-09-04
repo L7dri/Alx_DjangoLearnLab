@@ -145,7 +145,7 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Prevent browsers from trying to guess the content type, which helps avoid certain types of attacks.
 SECURE_CONTENT_TYPE_NOSNIFF = True
-
+SECURE_HSTS_INCLUDE_SUBDOMAINS
 # Ensure that CSRF cookies are only sent over HTTPS.
 CSRF_COOKIE_SECURE = True
 
