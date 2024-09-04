@@ -130,3 +130,7 @@ INSTALLED_APPS += ['csp']
 CSP_DEFAULT_SRC = ("'self'",)  # Only allow content from the same domain.
 CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'")  # Allow inline scripts, but prefer avoiding it.
 CSP_IMG_SRC = ("'self'", "data:")  # Allow images from the same domain and data URIs.
+
+# settings.py
+CSRF_COOKIE_SECURE = True  # Ensures CSRF cookies are sent over HTTPS.
+SESSION_COOKIE_SECURE = True  # Ensures session cookies are sent over HTTPS.
