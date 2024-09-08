@@ -1,7 +1,6 @@
-from rest_framework import serializers
-from .models import Book
+from django.urls import path
+from .views import BookList
 
-class BookSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Book
-        fields = ['id', 'title', 'author']
+urlpatterns = [
+    path('books/', BookList.as_view(), name='book-list'),
+]
