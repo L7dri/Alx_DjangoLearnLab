@@ -30,7 +30,7 @@ class BookDeleteView(generics.DestroyAPIView):
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]  # Only authenticated users can delete books
 
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 # Apply permissions to the ListView and DetailView
 class BookListView(generics.ListAPIView):
