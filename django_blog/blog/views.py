@@ -20,6 +20,39 @@ def register(request):
 def profile(request):
     return render(request, 'blog/profile.html')
 
+from django.contrib.auth.views import LoginView, LogoutView
+
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+
+class CustomLogoutView(LogoutView):
+    template_name = 'logout.html'
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from django.contrib.auth.models import User
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import CustomUserCreationForm
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('profile')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'register.html', {'form': form})
+
+
 from django.contrib.auth.forms import UserChangeForm
 
 @login_required
