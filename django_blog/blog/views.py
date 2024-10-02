@@ -65,3 +65,10 @@ def profile(request):
     else:
         form = UserChangeForm(instance=request.user)
     return render(request, 'blog/profile.html', {'form': form})
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
