@@ -41,3 +41,13 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.post.pk})
+from taggit.managers import TaggableManager
+
+class Post(models.Model):
+    # existing fields
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    tags = TaggableManager()  # Add this line
+
+    def __str__(self):
+        return self.title
