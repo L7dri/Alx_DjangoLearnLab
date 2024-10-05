@@ -132,3 +132,18 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+from django.views.generic import DetailView
+from django.shortcuts import get_object_or_404
+from .models import Post, Comment
+from .forms import CommentForm
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        context['comments'] = post.comments.all()
+        context['form'] = CommentForm()
+        return context
