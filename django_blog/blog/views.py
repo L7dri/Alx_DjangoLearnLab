@@ -147,3 +147,18 @@ class PostDetailView(DetailView):
         context['comments'] = post.comments.all()
         context['form'] = CommentForm()
         return context
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
+@login_required
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            return redirect('post-detail', pk=post.pk)
