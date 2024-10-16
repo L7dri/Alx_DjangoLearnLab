@@ -1,13 +1,8 @@
-# accounts/serializers.py
-from rest_framework import serializers
-from .models import CustomUser
-from django.contrib.auth import get_user_model
+# accounts/models.py
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ['username', 'email', 'password', 'bio', 'profile_picture']
-
-    def create(self, validated_data):
-        user = CustomUser.objects.create_user(**validated_data)
-        return user
+class CustomUser(AbstractUser):
+    bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    followers = models.ManyToManyField('self', symmetrical=False, related_name='following')
