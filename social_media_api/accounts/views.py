@@ -30,8 +30,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from .models import CustomUser
-
+from .serializers import CustomUserSerializer
 from rest_framework.views import APIView
+
+from rest_framework.generics import ListAPIView
+
+class UserListView(ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 class FollowUserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -60,4 +67,15 @@ class UnfollowUserView(APIView):
                 return Response({'error': 'You cannot unfollow yourself.'}, status=status.HTTP_400_BAD_REQUEST)
         except CustomUser.DoesNotExist:
             return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+from rest_framework.generics import RetrieveUpdateAPIView
 
+class UserProfileView(RetrieveUpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        # Override this to get the current user
+        return self.request.user
+
+    
