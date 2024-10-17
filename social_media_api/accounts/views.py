@@ -77,5 +77,15 @@ class UserProfileView(RetrieveUpdateAPIView):
     def get_object(self):
         # Override this to get the current user
         return self.request.user
+from rest_framework.generics import RetrieveUpdateAPIView
+
+class UserProfileView(RetrieveUpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        # Override this to get the current user
+        return self.request.user
 
     
