@@ -88,4 +88,4 @@ class UserProfileView(RetrieveUpdateAPIView):
         # Override this to get the current user
         return self.request.user
 
-    
+    generics.GenericAPIView
