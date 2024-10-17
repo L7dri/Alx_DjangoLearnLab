@@ -40,3 +40,33 @@ class Like(models.Model):
 
     class Meta:
         unique_together = ('post', 'user')  # Prevent multiple likes by the same user
+# posts/views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Post, Like
+from notifications.models import Notification
+
+class LikePostView(APIView):
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        if not Like.objects.filter(post=post, user=request.user).exists():
+            Like.objects.create(post=post, user=request.user)
+            # Create notification for the post author
+            Notification.objects.create(
+                recipient=post.author,
+                actor=request.user,
+                verb='liked your post',
+                target=post
+            )
+            return Response({'message': 'Post liked'}, status=status.HTTP_201_CREATED)
+        return Response({'error': 'You have already liked this post'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UnlikePostView(APIView):
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        like = Like.objects.filter(post=post, user=request.user)
+        if like.exists():
+            like.delete()
+            return Response({'message': 'Post unliked'}, status=status.HTTP_200_OK)
+        return Response({'error': 'You have not liked this post'}, status=status.HTTP_400_BAD_REQUEST)
