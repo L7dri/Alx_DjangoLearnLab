@@ -1,6 +1,6 @@
 # posts/views.py
 from rest_framework import viewsets, permissions
-from .models import Post, Comment, filter
+from .models import Post, Comment, filters
 from .serializers import PostSerializer, CommentSerializer
 
 class PostViewSet(viewsets.ModelViewSet):
