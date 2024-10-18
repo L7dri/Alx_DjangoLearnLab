@@ -58,3 +58,14 @@ class LikePostView(APIView):
             )
             return Response({'message': 'Post liked'}, status=status.HTTP_201_CREATED)
         return Response({'message': 'You have already liked this post'}, status=status.HTTP_400_BAD_REQUEST)
+class UnlikePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        post = generics.get_object_or_404(Post, pk=pk)
+        like = Like.objects.filter(user=request.user, post=post)
+
+        if like.exists():
+            like.delete()
+            return Response({'message': 'Post unliked'}, status=status.HTTP_200_OK)
+        return Response({'message': 'You have not liked this post'}, status=status.HTTP_400_BAD_REQUEST)
